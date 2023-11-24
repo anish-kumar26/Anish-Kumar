@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+}
+
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: white;
+    color: blue;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+a {
+    background-color: white;
+    color: blue;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.success-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.911);
+            cursor: pointer;
+            background: black;
+            border: none;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>Buy Now</h1>
+        
+        
+        <label for="customer_name">Name:</label>
+        <input type="text" name="customer_name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="mobile_number">Mobile Number:</label>
+        <input type="text" name="mobile_number" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" required><br>
+
+        <button id="close-btn" onclick="closeService()">X</button>
+
+        {% if success_message %}
+            <div id="success-message" class="success-message">{{ success_message }}</div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('success-message').style.display = 'none';
+                }, 3000); // Set the time in milliseconds (3000ms = 3s)
+            </script>
+        {% endif %}
+
+        <script>
+            function closeService() {
+            history.back();  // Go back to the previous page
+        }
+        </script>
+       
+    </form>
+
+    <button onclick="showAlert()">Place Order</button>
+
+<script>
+    function showAlert() {
+        alert('Order Has Been Placed!');
+    }
+</script>
+    
+</body>
+</html>

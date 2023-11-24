@@ -1,0 +1,35 @@
+<!-- iphones.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhones</title>
+</head>
+<body>
+    <h1>iPhones</h1>
+
+    {% for product in products %}
+        <div class="product">
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+            <p>Price: ${{ product.price }}</p>
+
+            <!-- Form for Buy -->
+            <form method="post" action="{% url 'buy' product.id %}">
+                {% csrf_token %}
+                <button type="submit">Buy Now</button>
+            </form>
+
+            <!-- Form for Add to Cart -->
+            <form method="post" action="{% url 'cart' %}">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <button type="submit">Add to Cart</button>
+            </form>
+        </div>
+    {% endfor %}
+
+    <a href="{% url 'home' %}">Back to Home</a>
+</body>
+</html>

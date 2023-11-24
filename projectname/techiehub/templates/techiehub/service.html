@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <style>
+        /* Your services page styles go here */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        /* Add styles for your feedback box or service-related content */
+        #feedback-box {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        #feedback-box label {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #feedback-textarea {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        #submit-btn {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            float: right;
+        }
+
+        #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.911);
+            cursor: pointer;
+            background: black;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+    <form method="GET" action="{% url 'service' %}"></form>
+
+    <!-- Your services page content -->
+
+    <h2>Services</h2>
+    <!-- Other service-related content -->
+
+    <div id="feedback-box">
+        
+        <label for="feedback-textarea">Feedback</label>
+        <textarea id="feedback-textarea" placeholder="Type your feedback"></textarea>
+        <button id="submit-btn" onclick="submitFeedback()">Submit</button>
+        <button id="close-btn" onclick="closeService()">X</button>
+    
+    </div>
+
+    <div id="loading-screen">
+        <div id="loading-spinner"></div>
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+    
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+    
+        function submitFeedback() {
+            alert("Feedback submitted!"); // You can replace this with actual submission logic
+        }
+    
+        function closeService() {
+            history.back();  // Go back to the previous page
+        }
+    </script>
+
+    <!-- Your services page footer -->
+
+    <script>
+        function submitFeedback() {
+            alert("Feedback submitted!"); // You can replace this with actual submission logic
+            
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Techie Hub</title>
+    <link href="templates\service.html">
+    <link href="templates\cart.html">
+ 
+</head>
+<style>
+       /* Your main page styles go here */
+
+   body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    overflow: hidden;
+}
+
+header {
+    background-color: #333;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+#menu-icon {
+    background-color: black;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+#sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+#sidebar a {
+    padding: 15px 15px 15px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidebar a:hover {
+    color: #f1f1f1;
+}
+
+#sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 15px;
+}
+
+.column-header {
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    text-align: center;
+}
+
+#feedback-box {
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+#feedback-box label {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#feedback-textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+#submit-btn {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    float: right;
+}
+
+#links-container {
+    background-color: #f2f2f2; /* Light grey background color */
+    padding: 10px; /* Add padding for some space inside the container */
+    border-radius: 8px; /* Optional: Add rounded corners to the box */
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.small-box {
+    background-color: rgba(255, 255, 255, 0.084); /* White background color for small boxes */
+    padding: 8px; /* Add padding for some space inside the small boxes */
+    border: 1px solid #ccc; /* Add a border to the small boxes */
+    border-radius: 5px; /* Optional: Add rounded corners to the small boxes */
+    flex: 0 0 30%; /* Make the small boxes take up 30% of the container width */
+}
+
+#links-container a {
+    text-decoration: none;
+    display: block; /* Make the links block-level elements to fill the small boxes */
+    margin-bottom: 5px; /* Add some space between the links */
+}
+
+#links-container a h3 {
+    color: blue;
+}
+
+#loading-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(255, 255, 255, 0.8);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000; /* Ensure it's above other elements */
+}
+
+#loading-spinner {
+border: 8px solid #f3f3f3; /* Light grey */
+border-top: 8px solid #3498db; /* Blue */
+border-radius: 50%;
+width: 50px;
+height: 50px;
+animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 24px;
+}
+
+#content {
+display: none; /* Initially hide content */
+}
+
+#close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.014);
+    cursor: pointer;
+    background: black;
+    border: none;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+footer {
+    margin-top: 430px; /* You can adjust this value as needed */
+  }
+  button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+</style>
+<body>
+
+    
+    <div id="menu-icon" onclick="openNav()">☰</div>
+
+    <div id="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <div class="column-header">More</div>
+        <a href="{% url 'contact' %}">Contact</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'service' %}">Service</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'gmail' %}">Gmail</a>
+        <a href="{% url 'cart' %}">Cart</a>
+        
+        
+
+    </div>
+
+    <div id="main">
+        <header>
+            <section>
+                <h2>{{ my_variable }}</h2>
+                
+              </section>
+           
+            <div id="menu-icon" onclick="openNav()">☰</div>
+        </header>
+        
+        <br>
+        
+        <a href="{% url 'iphone' %}"><button>iPhones</button></a>
+            
+<!-- home.html -->
+
+
+<footer>
+    <p>&copy; 2023 Responsive Sidebar</p>
+  </footer>
+
+ 
+
+    <!-- Your main page footer -->
+
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+
+        function submitFeedback() {
+            alert("Feedback submitted!"); // You can replace this with actual submission logic
+        }
+    </script>
+
+    
+    
+    
+
+        <!-- Your page content goes here -->
+    <div id="content">
+        <!-- Your actual content goes here -->
+    </div>
+    <script src="C:\Myproject\projectname\techiehub\static\js\loader.js"></script>
+    
+</body>
+<body>
+    <script>
+    // Hide loading screen after a delay (simulating content loading)
+    document.addEventListener('DOMContentLoaded', function () {
+        var loadingScreen = document.getElementById('loadingScreen');
+        var content = document.getElementById('content');
+
+        // Show loading screen
+        loadingScreen.style.display = 'flex';
+
+        // Hide loading screen after a delay (simulating content loading)
+        setTimeout(function () {
+            loadingScreen.style.display = 'none';
+            content.style.display = 'block';
+        }, 2000);  // Set the delay to 0 milliseconds to execute after the DOM is ready
+    });
+</script>
+
+</body>
+</html>

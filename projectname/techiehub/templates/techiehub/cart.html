@@ -1,0 +1,64 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            display: block;
+            margin-top: 20px;
+        }
+        #home-btn {
+            cursor: pointer;
+            
+        }
+    </style>
+   
+</head>
+<body>
+    <h1>Your Cart</h1>
+
+    {% for order in orders %}
+    <div class="order">
+        <strong>{{ order.product.name }}</strong> - 
+        Price: ${{ order.product.price }} -
+        Ordered on: {{ order.order_date }}
+        <!-- Link to Buy Now -->
+        <a href="{% url 'buy' product_id=order.product.id %}">Buy Now</a>
+    </div>
+{% endfor %}
+
+    <a id="home-btn" onclick="closeService()">Continue Shopping</a>
+    <a href="buy.html">Buy</a>
+    <script>
+        function closeService() {
+        history.back();
+    }
+    </script>
+</body>
+</html>

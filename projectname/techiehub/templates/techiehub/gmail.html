@@ -1,0 +1,123 @@
+<!-- gmail_integration/templates/gmail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail</title>
+</head>
+
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+input,
+textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.success-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.911);
+            cursor: pointer;
+            background: black;
+            border: none;
+        }
+
+</style>
+<body>
+    <h1>Gmail</h1>
+    
+    <form method="post" action="{% url 'gmail' %}">
+        {% csrf_token %}
+        <label for="from_email">From:</label>
+        <input type="text" id="from_email" name="from_email" required><br>
+
+        <label for="to_email">To:</label>
+        <input type="text" id="to_email" name="to_email" required><br>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" cols="50" required></textarea><br>
+
+        <input type="submit" value="Send Email">
+        <button id="close-btn" onclick="closeService()">X</button>
+    </form>
+
+    
+
+        {% if success_message %}
+            <div id="success-message" class="success-message">{{ success_message }}</div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('success-message').style.display = 'none';
+                }, 3000); // Set the time in milliseconds (3000ms = 3s)
+            </script>
+        {% endif %}
+
+        <script>
+            function closeService() {
+            history.back();  // Go back to the previous page
+        }
+        </script>
+
+</body>
+</html>
