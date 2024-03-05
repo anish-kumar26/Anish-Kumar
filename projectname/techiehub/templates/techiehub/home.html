@@ -1,250 +1,330 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Techie Hub</title>
-    <link href="templates\service.html">
-    <link href="templates\cart.html">
- 
+    <title>StylishHeaven</title>
+
+    <style>
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #loading-spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 24px;
+        }
+
+        #content {
+            display: none;
+        }
+
+        #menu-icon {
+            background-color: black;
+            padding: 10px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        #sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        #sidebar a {
+            padding: 15px 15px 15px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        #sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 15px;
+        }
+
+        .column-header {
+            background-color: #333;
+            color: white;
+            padding: 5px;
+            text-align: center;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 55px;
+            width: 100%;
+            background-color: #333;
+            padding: 5px;
+            color: white;
+            text-align: center;
+        }
+
+        .footer-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .under-development {
+            background-color: #333;
+            color: #ffffffea;
+            padding: 10px;
+            white-space: nowrap;
+            animation: moveLeftRight 20s linear infinite;
+        }
+
+        @keyframes moveLeftRight {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header {
+            background-color: #333;
+            padding: 5px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            justify-content: flex-start;
+            margin: 10px;
+        }
+
+        .thumbnail {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, #4CAF50, #2196F3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .thumbnail-text {
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #searchBarContainer {
+            width: calc(100% - 40px);
+            margin: 10px 20px;
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        #searchBar {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            background: #f1f1f1;
+            border-radius: 20px 0 0 20px;
+        }
+
+        #searchButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            background: #3498db;
+            color: #fff;
+            border-radius: 0 20px 20px 0;
+        }
+
+        #searchError {
+            color: #757575;
+            margin-top: 10px;
+        }
+
+        #header-icon img {
+            width: 70px;
+            height: 70px;
+            margin-right: 600px;
+            margin-top: -30px;
+        }
+
+        #menu-icon {
+            background-color: black;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="icon" type="image/png" sizes="64x64" href="/static/Stylish.png">
+
 </head>
-<style>
-       /* Your main page styles go here */
 
-   body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    overflow: hidden;
-}
-
-header {
-    background-color: #333;
-    padding: 5px;
-    color: white;
-    text-align: center;
-    position: relative;
-}
-
-#menu-icon {
-    background-color: black;
-    padding: 10px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-
-#sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-#sidebar a {
-    padding: 15px 15px 15px 32px;
-    text-decoration: none;
-    font-size: 20px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-#sidebar a:hover {
-    color: #f1f1f1;
-}
-
-#sidebar .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-#main {
-    transition: margin-left .5s;
-    padding: 15px;
-}
-
-.column-header {
-    background-color: #333;
-    color: white;
-    padding: 5px;
-    text-align: center;
-}
-
-#feedback-box {
-    background-color: #f0f0f0;
-    padding: 20px;
-    margin-top: 20px;
-}
-
-#feedback-box label {
-    font-size: 18px;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
-}
-
-#feedback-textarea {
-    width: 100%;
-    height: 100px;
-    resize: none;
-    margin-bottom: 10px;
-}
-
-#submit-btn {
-    background-color: #333;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    float: right;
-}
-
-#links-container {
-    background-color: #f2f2f2; /* Light grey background color */
-    padding: 10px; /* Add padding for some space inside the container */
-    border-radius: 8px; /* Optional: Add rounded corners to the box */
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.small-box {
-    background-color: rgba(255, 255, 255, 0.084); /* White background color for small boxes */
-    padding: 8px; /* Add padding for some space inside the small boxes */
-    border: 1px solid #ccc; /* Add a border to the small boxes */
-    border-radius: 5px; /* Optional: Add rounded corners to the small boxes */
-    flex: 0 0 30%; /* Make the small boxes take up 30% of the container width */
-}
-
-#links-container a {
-    text-decoration: none;
-    display: block; /* Make the links block-level elements to fill the small boxes */
-    margin-bottom: 5px; /* Add some space between the links */
-}
-
-#links-container a h3 {
-    color: blue;
-}
-
-#loading-screen {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(255, 255, 255, 0.8);
-display: flex;
-justify-content: center;
-align-items: center;
-z-index: 1000; /* Ensure it's above other elements */
-}
-
-#loading-spinner {
-border: 8px solid #f3f3f3; /* Light grey */
-border-top: 8px solid #3498db; /* Blue */
-border-radius: 50%;
-width: 50px;
-height: 50px;
-animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
-}
-
-.loading-text {
-    font-size: 24px;
-}
-
-#content {
-display: none; /* Initially hide content */
-}
-
-#close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.014);
-    cursor: pointer;
-    background: black;
-    border: none;
-}
-
-footer {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
-footer {
-    margin-top: 430px; /* You can adjust this value as needed */
-  }
-  button {
-  background-color: #333;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-}
-</style>
 <body>
-
-    
     <div id="menu-icon" onclick="openNav()">☰</div>
-
     <div id="sidebar">
+
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <div class="column-header">More</div>
+        <div class="column-header">StylishHeaven</div>
         <a href="{% url 'contact' %}">Contact</a>
         <a href="{% url 'about' %}">About</a>
         <a href="{% url 'service' %}">Service</a>
         <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'gmail' %}">Gmail</a>
-        <a href="{% url 'cart' %}">Cart</a>
-        
-        
+        <a href="{% url 'ai_chat' %}">Turbo AI</a>
 
     </div>
+    <div class="footer-container">
+        <div class="under-development">This website is under development</div>
+    </div>
 
-    <div id="main">
-        <header>
-            <section>
-                <h2>{{ my_variable }}</h2>
-                
-              </section>
-           
-            <div id="menu-icon" onclick="openNav()">☰</div>
-        </header>
-        
-        <br>
-        
-        <a href="{% url 'iphone' %}"><button>iPhones</button></a>
-            
-<!-- home.html -->
+    <header>
+        <section>
+            <h2>Welcome To StylishHeaven {{ my_variable }}
+                <div id="header-icon">
+                    <img src="/static/Stylish (1).png">
+                </div>
+            </h2>
+        </section>
+
+        <div id="menu-icon" onclick="openNav()">☰</div>
+
+    </header>
 
 
-<footer>
-    <p>&copy; 2023 Responsive Sidebar</p>
-  </footer>
+    <div id="searchBarContainer">
+        <input type="text" id="searchBar" placeholder="Search webpages...">
+        <button id="searchButton" onclick="search()">Search</button>
+    </div>
+    <div class="thumbnail-container">
+        <a href="{% url 'home_and_buisness' %}">
+            <div class="thumbnail">
+                <span class="thumbnail-text">Interior Buisness</span>
+            </div>
+        </a>
+    </div>
 
- 
-
-    <!-- Your main page footer -->
+    <div class="thumbnail-container">
+        <a href="{% url 'CGIS_buisness' %}">
+            <div class="thumbnail">
+                <span class="thumbnail-text">Casagrand international school</span>
+            </div>
+        </a>
+    </div>
+    <footer>
+        <p>&copy; 2023 StylishHeaven</p>
+    </footer>
 
     <script>
+        function search() {
+            var input, filter, thumbnailContainer, thumbnails, thumbnailText, i, txtValue;
+            input = document.getElementById('searchBar');
+            filter = input.value.trim().toUpperCase();
+            thumbnailContainer = document.querySelector('.thumbnail-container');
+            thumbnails = thumbnailContainer.querySelectorAll('.thumbnail');
+
+            var noMatches = true;
+
+            for (i = 0; i < thumbnails.length; i++) {
+                thumbnailText = thumbnails[i].querySelector('.thumbnail-text');
+                txtValue = thumbnailText.textContent || thumbnailText.innerText;
+
+                if (txtValue.toUpperCase().includes(filter) || filter === "") {
+                    thumbnails[i].style.display = '';
+                    noMatches = false;
+                } else {
+                    thumbnails[i].style.display = 'none';
+                }
+            }
+
+            var searchError = document.getElementById('searchError');
+            var searchBarContainer = document.getElementById('searchBarContainer');
+
+            if (noMatches && filter !== "") {
+                searchError.textContent = "No matching stories found.";
+            } else {
+                searchError.textContent = "";
+            }
+
+            searchBarContainer.style.display = noMatches && filter !== "" ? 'flex' : 'none';
+        }
+
         function openNav() {
             document.getElementById("sidebar").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -252,42 +332,19 @@ footer {
 
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft= "0";
+            document.getElementById("main").style.marginLeft = "0";
         }
 
-        function submitFeedback() {
-            alert("Feedback submitted!"); // You can replace this with actual submission logic
+
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
         }
+
+        gtag('js', new Date());
+        gtag('config', 'G-2Z4N9NP9DH');
     </script>
-
-    
-    
-    
-
-        <!-- Your page content goes here -->
-    <div id="content">
-        <!-- Your actual content goes here -->
-    </div>
-    <script src="C:\Myproject\projectname\techiehub\static\js\loader.js"></script>
-    
 </body>
-<body>
-    <script>
-    // Hide loading screen after a delay (simulating content loading)
-    document.addEventListener('DOMContentLoaded', function () {
-        var loadingScreen = document.getElementById('loadingScreen');
-        var content = document.getElementById('content');
 
-        // Show loading screen
-        loadingScreen.style.display = 'flex';
-
-        // Hide loading screen after a delay (simulating content loading)
-        setTimeout(function () {
-            loadingScreen.style.display = 'none';
-            content.style.display = 'block';
-        }, 2000);  // Set the delay to 0 milliseconds to execute after the DOM is ready
-    });
-</script>
-
-</body>
 </html>

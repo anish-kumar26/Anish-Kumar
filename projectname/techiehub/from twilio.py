@@ -1,0 +1,5 @@
+bot = ('MyBot')
+trainer = (bot)
+response = bot.get_response('Hello, how are you?')
+print(trainer)
+print(response)

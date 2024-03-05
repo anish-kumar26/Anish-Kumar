@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior Design Inquiry</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        section {
+            padding: 2em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .message-box {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #inquiry-table {
+            margin-top: 20px;
+            display: none;
+            font-size: 18px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #inquiry-table th,
+        #inquiry-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        #inquiry-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        a {
+            color: white;
+        }
+
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label[for="image-upload"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        label[for="image-upload"]:hover {
+            background-color: #555;
+        }
+
+        #file-name {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Interior Design Inquiry</h1>
+        </div>
+    </header>
+
+    <section class="main-content">
+        <div class="container">
+            <h2>Welcome to our Interior Design Studio</h2>
+
+            <form method="POST" action="{% url 'buisness' %}" id="inquiryForm">
+                {% csrf_token %}
+                <label for="room-dimensions">Room Dimensions:</label>
+                <input type="text" id="room-dimensions" name="room-dimensions" placeholder="e.g., 12' x 15'">
+
+                <label for="bed-type">Bed Type:</label>
+                <select id="bed-type" name="bed-type">
+                    <option value="normal">Normal Bed</option>
+                    <option value="normal">Double Bed</option>
+                    <option value="normal">Queen Size Bed</option>
+                    <option value="king">King Size Bed</option>
+                </select>
+
+                <label for="color-preference">Color Preference:</label>
+                <select id="color-preference" name="color-preference">
+                    <option value="blue">Blue</option>
+                    <option value="orange">Orange</option>
+                    <option value="golden">Golden</option>
+                    <option value="white">White</option>
+                    <option value="green">Green</option>
+                    <option value="theme">Theme based</option>
+                    <option value="custom">Custom</option>
+                </select>
+
+                <label for="theme">Theme:</label>
+                <select id="theme" name="theme">
+                    <option value="blue">Blue</option>
+                    <option value="orange">Orange</option>
+                    <option value="golden">Golden</option>
+                    <option value="white">White</option>
+                    <option value="green">Green</option>
+                    <option value="picture">Picture based</option>
+                    <option value="custom">Custom</option>
+                </select>
+
+                <label for="wallpaper">Wallpaper:</label>
+                <select id="wallpaper" name="wallpaper">
+                    <option value="blue">Blue</option>
+                    <option value="orange">Orange</option>
+                    <option value="golden">Golden</option>
+                    <option value="white">White</option>
+                    <option value="green">Green</option>
+                    <option value="pictures">Pictures</option>
+                    <option value="custom">Custom</option>
+                </select>
+
+                <label for="wallpaper">How many rroms you have to do introior:</label>
+                <select id="wallpaper" name="wallpaper">
+                    <option value="blue">1Room</option>
+                    <option value="orange">2Room</option>
+                    <option value="golden">3Room</option>
+                    <option value="white">4</option>
+                    <option value="green">hall</option>
+                    <option value="custom">All of these</option>
+                </select>
+
+                <label for="budget">Budget:</label>
+                <input type="text" id="budget" name="budget" placeholder="e.g., $5000">
+
+                <label for="room-layout">Room Layout:</label>
+                <textarea id="room-layout" name="room-layout" placeholder="Describe the preferred room layout..."></textarea>
+
+                <label for="comments">Additional Comments:</label>
+                <textarea id="comments" name="comments" placeholder="Any specific requirements or comments..."></textarea>
+
+                <label for="wallpaper">BHK:</label>
+                <select id="wallpaper" name="wallpaper">
+                    <option value="blue">1BHK</option>
+                    <option value="orange">2BHK</option>
+                    <option value="golden">3BHK</option>
+                    <option value="white">4BHK</option>
+                </select>
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your name">
+
+                <label for="number">Phone Number:</label>
+                <input type="number" id="number" name="number" placeholder="Enter you phone number">
+
+                <label for="date-of-birth">Date of Birth:</label>
+                <input type="date" id="date-of-birth" name="date-of-birth">
+
+                <label for="wardrobe-size">Wardrobe Size:</label>
+                <input type="text" id="wardrobe-size" name="wardrobe-size" placeholder="e.g., 6' x 4'">
+
+
+                <label for="image-upload">Upload Image:</label>
+                <input type="file" id="image-upload" name="image-upload" onchange="displayFileName()">
+                <div id="file-name"></div>
+
+                <button type="submit" onclick="submitInquiry()">Submit Inquiry</button>
+
+                
+
+            </form>
+
+
+
+            <table id="inquiry-table">
+
+
+                
+            </table>
+            <br>
+            <button><a href="{% url 'payment' %}">Payment</a></button>
+        </div>
+    </section>
+
+    <script>
+        function submitInquiry() {
+
+            const formData = new FormData(document.getElementById('inquiryForm'));
+            formData.append('room-dimensions', document.getElementById('room-dimensions').value);
+            formData.append('bed-type', document.getElementById('bed-type').value);
+            formData.append('color-preference', document.getElementById('color-preference').value);
+            formData.append('theme', document.getElementById('theme').value);
+            formData.append('wallpaper', document.getElementById('wallpaper').value);
+            formData.append('budget', document.getElementById('budget').value);
+            formData.append('room-layout', document.getElementById('room-layout').value);
+            formData.append('comments', document.getElementById('comments').value);
+            formData.append('name', document.getElementById('name').value);
+            formData.append('number', document.getElementById('number').value);
+            formData.append('date-of-birth', document.getElementById('date-of-birth').value);
+            formData.append('wardrobe-size', document.getElementById('wardrobe-size').value);
+            formData.append('image-upload', document.getElementById('image-upload').files[0]);
+            generateAiImage(formData); 
+
+            const estimatedPrice = calculateEstimatedPrice(formData);
+
+
+            const budgetLimit = 250000;
+            if (estimatedPrice > budgetLimit) {
+                alert('Estimated price exceeds the budget limit of 2,50,000 INR.');
+                return;
+            }
+
+            const messageBox = document.getElementById('messageBox');
+            messageBox.innerText = 'Generating...';
+            messageBox.style.display = 'block';
+
+
+            setTimeout(function () {
+
+                messageBox.style.display = 'none';
+
+
+                displayInquiryData(formData, estimatedPrice);
+            }, 3000);
+        }
+      
+    
+            fetch('/buisness/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: 'user_input=' + encodeURIComponent(userInput)
+            })
+            .then(response => response.json())
+            .then(data => {
+                var assistantDiv = document.createElement('div');
+                assistantDiv.className = 'message assistant';
+
+                if (data.ai_response.includes('.png') || data.ai_response.includes('.jpg')) {
+                    var image = document.createElement('img');
+                    image.src = data.ai_response;
+                    image.alt = 'AI Image';
+                    image.className = 'ai-image';
+                    assistantDiv.appendChild(image);
+                } else {
+                    assistantDiv.innerHTML = '<div class="assistant">' + data.ai_response + '</div>';
+                }
+                document.getElementById("chat-box").appendChild(assistantDiv);
+    
+                var chatBox = document.getElementById("chat-box");
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+    
+            return false;  
+        
+        function calculateEstimatedPrice(formData) {
+
+            const bedPrices = {
+                'normal': 50000,
+                'king': 70000,
+            };
+
+            const colorPrices = {
+                'blue': 10000,
+                'orange': 12000,
+                'golden': 15000,
+                'white': 13000,
+                'green': 11000,
+                'theme': 20000,
+                'custom': 30000,
+            };
+
+            const themePrices = {
+                'blue': 8000,
+                'orange': 9000,
+                'golden': 10000,
+                'white': 8500,
+                'green': 9500,
+                'picture': 12000,
+                'custom': 20000,
+            };
+
+            const wallpaperPrices = {
+                'blue': 5000,
+                'orange': 6000,
+                'golden': 7000,
+                'white': 5500,
+                'green': 6500,
+                'pictures': 10000,
+                'custom': 18000,
+            };
+
+            let totalCost = 0;
+
+
+            const selectedBed = formData.get('bed-type');
+            totalCost += bedPrices[selectedBed];
+
+            const selectedColor = formData.get('color-preference');
+            totalCost += colorPrices[selectedColor];
+
+
+            const selectedTheme = formData.get('theme');
+            totalCost += themePrices[selectedTheme];
+
+            const selectedWallpaper = formData.get('wallpaper');
+            totalCost += wallpaperPrices[selectedWallpaper];
+
+            return totalCost;
+        }
+
+        function displayInquiryData(formData, estimatedPrice, aiImageUrl) {
+
+    const table = document.getElementById('inquiry-table');
+    table.innerHTML = '';
+
+    for (const [key, value] of formData.entries()) {
+        const row = table.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        cell1.innerText = key;
+        cell2.innerText = value;
+    }
+
+
+    const imageRow = table.insertRow();
+    const imageCell1 = imageRow.insertCell(0);
+    const imageCell2 = imageRow.insertCell(1);
+
+    imageCell1.innerText = 'AI-generated Image';
+    const aiImage = document.createElement('img');
+    aiImage.src = aiImageUrl;
+    aiImage.alt = 'AI-generated Image';
+    aiImage.style.maxWidth = '100%';
+    imageCell2.appendChild(aiImage);
+
+    const priceRow = table.insertRow();
+    const priceCell1 = priceRow.insertCell(0);
+    const priceCell2 = priceRow.insertCell(1);
+    priceCell1.innerText = 'Estimated Price';
+    priceCell2.innerText = estimatedPrice + ' INR';
+
+    table.style.display = 'table';
+
+    const fileName = formData.get('image-upload') ? formData.get('image-upload').name : 'No file uploaded';
+    document.getElementById('file-name').innerText = 'File: ' + fileName;
+}
+
+
+        function displayFileName() {
+            const fileName = document.getElementById('image-upload').files[0].name;
+            document.getElementById('file-name').innerText = 'File: ' + fileName;
+        }
+    </script>
+
+</body>
+
+</html>

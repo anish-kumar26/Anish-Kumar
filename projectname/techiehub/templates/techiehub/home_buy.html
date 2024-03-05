@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Buying Inquiry</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+        }
+
+        section {
+            padding: 2em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .message-box {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        #inquiry-table {
+            margin-top: 20px;
+            display: none;
+            font-size: 18px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #inquiry-table th,
+        #inquiry-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        #inquiry-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        a {
+            color: white;
+        }
+
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label[for="image-upload"] {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        label[for="image-upload"]:hover {
+            background-color: #555;
+        }
+
+        #file-name {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Home Buying Inquiry</h1>
+        </div>
+    </header>
+
+    <section class="main-content">
+        <div class="container">
+            <h2>Welcome to our Home Buying Portal</h2>
+
+            <form method="post" action="javascript:(0);" id="homeBuyingForm">
+
+
+                <button type="button" onclick="submitInquiry()">Submit Inquiry</button>
+            </form>
+
+            <div id="messageBox" class="message-box"></div>
+
+            <table id="inquiry-table" class="hidden">
+
+            </table>
+
+            <br>
+            <button onclick="redirectToPayment()">Payment</button>
+        </div>
+    </section>
+
+    <script>
+        function submitInquiry() {
+
+
+
+            const messageBox = document.getElementById('messageBox');
+            messageBox.innerText = 'Generating...';
+            messageBox.style.display = 'block';
+
+            setTimeout(function () {
+
+                messageBox.style.display = 'none';
+
+ 
+                displayInquiryData();
+            }, 3000);
+        }
+
+        function displayInquiryData() {
+
+            const table = document.getElementById('inquiry-table');
+            table.innerHTML = '<tr><th>Data Field</th><th>Value</th></tr>';
+
+
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.innerText = 'Example Field';
+            cell2.innerText = 'Example Value';
+
+            table.style.display = 'table';
+        }
+
+        function redirectToPayment() {
+ 
+            window.location.href = '/payment';
+        }
+    </script>
+
+</body>
+
+</html>

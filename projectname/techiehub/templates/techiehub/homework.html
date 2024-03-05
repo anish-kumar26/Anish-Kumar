@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Log</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dateRow{
+            padding: 10px;
+            width: 80%;
+        }
+
+        #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it's above other elements */
+    }
+    
+    #loading-spinner {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+        font-size: 24px;
+    }
+    
+    #content {
+    display: none; /* Initially hide content */
+    }
+
+    </style>
+    
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.js"></script>
+</head>
+<body>
+
+<h2>Daily Log</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th colspan="4" id="dateRow"></th>
+
+        </tr>
+
+        <tr>
+
+            <th>Periods:</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Add rows for each subject -->
+        <tr>
+            <td>Subjects:</td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+        </tr>
+        <tr>
+            <td>Instruction input:</td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+        </tr>
+        <tr>
+            <td>Enrichment Activity:</td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+            <td contenteditable="true"></td>
+        </tr>
+        <!-- Add rows for the remaining subjects similarly -->
+    </tbody>
+</table>
+
+<br>
+
+<button id="downloadButton">Download PDF</button>
+
+<script>
+    $(document).ready(function () {
+        // Function to convert table data to PDF
+        function exportTableToPDF() {
+            const table = document.getElementsByTagName("table")[0];
+
+            // Create an options object for html2pdf.js
+            const options = {
+                margin: 10,
+                filename: 'Daily Log.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Get the current date
+            const currentDate = new Date().toLocaleDateString();
+
+            // Set the current date in the date row
+            document.getElementById("dateRow").innerText = `Date: ${currentDate}`;
+
+            // Use html2pdf.js to generate the PDF
+            html2pdf(table, options);
+        }
+
+        // Event listener for the download button
+        $("#downloadButton").on("click", function () {
+            exportTableToPDF();
+        });
+    });
+</script>
+
+<script>
+    // Hide loading screen after a delay (simulating content loading)
+    document.addEventListener('DOMContentLoaded', function () {
+        var loadingScreen = document.getElementById('loading-screen'); // Fix: Use 'loading-screen' instead of 'loadingScreen'
+        var content = document.getElementById('content');
+
+        // Show loading screen
+        loadingScreen.style.display = 'flex';
+
+        // Hide loading screen after a delay (simulating content loading)
+        setTimeout(function () {
+            loadingScreen.style.display = 'none';
+            content.style.display = 'block';
+        }, 1500); // Set the delay to 2000 milliseconds (2 seconds) or adjust as needed
+    });
+</script>
+
+<div id="loading-screen">
+    <div id="loading-spinner"></div>
+</div>
+
+
+</body>
+</html>

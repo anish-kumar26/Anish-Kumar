@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from pathlib import Path
 import os
-import django_heroku
+import sys
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -32,10 +33,17 @@ SECRET_KEY = 'django-insecure-^5d75r@!s-w#ktx$498k3hy4m+wn1le62xmmy&q1ldv=%rj-zk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
+STATIC_URL = '/static/'
+
 ALLOWED_HOSTS = []
 
 
+
+
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -58,6 +66,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 ROOT_URLCONF = 'projectname.urls'
 
@@ -139,4 +149,4 @@ GOOGLE_API_REDIRECT_URI = 'your_redirect_uri'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-django_heroku.settings(locals())
+

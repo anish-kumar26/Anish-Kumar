@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <style>
-        /* Your contact page styles go here */
+
 
         body {
             font-family: 'Arial', sans-serif;
@@ -35,26 +35,85 @@
             background: black;
             border: none;
         }
+
+        #loading-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(255, 255, 255, 0.8);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+
+#loading-spinner {
+border: 8px solid #f3f3f3; 
+border-top: 8px solid #3498db; 
+border-radius: 50%;
+width: 50px;
+height: 50px;
+animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 24px;
+}
+
+#content {
+display: none; 
+}
     </style>
     <header>
         <h1>Contact</h1>
     </header>
     <script>
         function closeService() {
-            history.back();  // Go back to the previous page
+            history.back(); 
         }
     </script>
 </head>
 <body>
 
-    <!-- Your contact page content -->
+
 
     <div><h3>Contact Us:+91-9791092130</h3></div>
     <div id="contact us">
     <button id="close-btn" onclick="closeService()">X</button>
     </div>
 
-    <!-- Your contact page footer -->
 
 </body>
 </html>
+
+<div id="loading-screen">
+    <div id="loading-spinner"></div>
+</div>
+
+<div id="content" style="display: none;">
+
+</div>
+
+<script>
+    // Hide loading screen after a delay (simulating content loading)
+    document.addEventListener('DOMContentLoaded', function () {
+        var loadingScreen = document.getElementById('loading-screen'); // Fix: Use 'loading-screen' instead of 'loadingScreen'
+        var content = document.getElementById('content');
+
+        // Show loading screen
+        loadingScreen.style.display = 'flex';
+
+        // Hide loading screen after a delay (simulating content loading)
+        setTimeout(function () {
+            loadingScreen.style.display = 'none';
+            content.style.display = 'block';
+        }, 1500); // Set the delay to 2000 milliseconds (2 seconds) or adjust as needed
+    });
+</script>

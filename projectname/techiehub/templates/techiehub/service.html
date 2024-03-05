@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services</title>
     <style>
-        /* Your services page styles go here */
+
 
         body {
             font-family: 'Arial', sans-serif;
@@ -17,7 +17,7 @@
             text-align: center;
         }
 
-        /* Add styles for your feedback box or service-related content */
+
         #feedback-box {
             background-color: #f0f0f0;
             padding: 20px;
@@ -31,23 +31,99 @@
             margin-bottom: 10px;
         }
 
-        #feedback-textarea {
+        #service1 {
             width: 100%;
             height: 100px;
             resize: none;
             margin-bottom: 10px;
         }
 
-        #submit-btn {
+        #service {
             background-color: #333;
             color: white;
             padding: 10px;
             border: none;
             cursor: pointer;
-            float: right;
+            
         }
 
         #close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.951);
+            cursor: pointer;
+            background: black;
+            border: none;
+        }
+
+        #form {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0);
+            cursor: pointer;
+            background: black;
+            border: none;
+        }
+        #feedback {
+            position: center;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0);
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.016);
+            border: none;
+        }
+
+        .success-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#loading-screen {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(255, 255, 255, 0.8);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+
+#loading-spinner {
+border: 8px solid #f3f3f3; 
+border-top: 8px solid #3498db; 
+border-radius: 50%;
+width: 50px;
+height: 50px;
+animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 24px;
+}
+
+#content {
+display: none; 
+}
+
+#close-btn {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -61,54 +137,67 @@
     </style>
 </head>
 <body>
-    <form method="GET" action="{% url 'service' %}"></form>
 
-    <!-- Your services page content -->
+    <form method="post" action="{% url 'service' %}">
+        {% csrf_token %}   
 
-    <h2>Services</h2>
-    <!-- Other service-related content -->
-
-    <div id="feedback-box">
-        
-        <label for="feedback-textarea">Feedback</label>
-        <textarea id="feedback-textarea" placeholder="Type your feedback"></textarea>
-        <button id="submit-btn" onclick="submitFeedback()">Submit</button>
         <button id="close-btn" onclick="closeService()">X</button>
-    
-    </div>
+        <h2>Services</h2>
+        <div id="feedback-box">        
+            <label for="service1">Feedback</label>
+            <textarea id="service1" name="service1" value="service1" placeholder="Type your feedback"></textarea>
+            <button id="service" name="service" type="submit">Submit</button>
+           
+            {% if success_message %}
+            <div id="success-message" class="success-message">{{ success_message }}</div>
+            <script>
+                setTimeout(function() {
+                    document.getElementById('success-message').style.display = 'none';
+                }, 4000);
+            </script>
 
-    <div id="loading-screen">
-        <div id="loading-spinner"></div>
-    </div>
-
-    <script>
-        function openNav() {
-            document.getElementById("sidebar").style.width = "250px";
-            document.getElementById("main").style.marginLeft = "250px";
-        }
-    
-        function closeNav() {
-            document.getElementById("sidebar").style.width = "0";
-            document.getElementById("main").style.marginLeft= "0";
-        }
-    
-        function submitFeedback() {
-            alert("Feedback submitted!"); // You can replace this with actual submission logic
-        }
-    
-        function closeService() {
-            history.back();  // Go back to the previous page
-        }
+<script>
+    function closeService() {
+        history.back();  
+    }
+</script>
     </script>
 
-    <!-- Your services page footer -->
+    {% endif %}
 
-    <script>
-        function submitFeedback() {
-            alert("Feedback submitted!"); // You can replace this with actual submission logic
-            
-        }
-    </script>
+        </div>
+
+
+
+        
+       
+
+    </form>
 
 </body>
 </html>
+
+<div id="loading-screen">
+    <div id="loading-spinner"></div>
+</div>
+
+<div id="content" style="display: none;">
+
+</div>
+
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        var loadingScreen = document.getElementById('loading-screen'); 
+        var content = document.getElementById('content');
+
+
+        loadingScreen.style.display = 'flex';
+
+
+        setTimeout(function () {
+            loadingScreen.style.display = 'none';
+            content.style.display = 'block';
+        }, 1500); 
+    });
+</script>

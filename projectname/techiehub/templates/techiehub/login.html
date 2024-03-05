@@ -54,12 +54,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensure it's above other elements */
+    z-index: 1000;
 }
 
 #loading-spinner {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
+    border: 8px solid #f3f3f3; 
+    border-top: 8px solid #3498db; 
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -72,24 +72,31 @@
 }
 
 #content {
-    display: none; /* Initially hide content */
+    display: none; 
 }
     </style>
-</head>
+</head>    
+<link rel="icon" type="image/png" sizes="64x64" href="/static/Stylish.png">
+
 <body>
+    
     <div class="login-container">
         <h2>Login</h2>
-        <h1>{{ name }}</h1>
+
         {% if error_message %}
             <p class="error-message">{{ error_message }}</p>
         {% endif %}
         <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <label for="username">Username:</label>
+            {% csrf_token %}        
+            <label for="username">Gmail:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
             <button type="submit">Login</button>
+            <p>Forgot Password? <a href="{% url 'forgot_password' %}">Change Password</a></p>
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+            <h4>Or</h4>
+            <p>Login As Guest! - <a href="{% url 'guest' %}">Guest</a></p>
         </form>
     </div>
 
@@ -104,3 +111,28 @@
 </html>
 </body>
 </html>
+
+
+<div id="loading-screen">
+    <div id="loading-spinner"></div>
+</div>
+
+<div id="content" style="display: none;">
+ 
+</div>
+
+<script>
+   
+    document.addEventListener('DOMContentLoaded', function () {
+        var loadingScreen = document.getElementById('loading-screen'); 
+        var content = document.getElementById('content');
+
+       
+        loadingScreen.style.display = 'flex';
+
+        setTimeout(function () {
+            loadingScreen.style.display = 'none';
+            content.style.display = 'block';
+        }, 1500); 
+    });
+</script>

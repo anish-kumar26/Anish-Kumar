@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Enchanted Equinox</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 20px;
+    }
+
+    header {
+      text-align: center;
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px;
+    }
+
+    .story-container {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    footer a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    footer a:hover {
+      background-color: #45a049;
+    }
+
+    h1 {
+      color: #4CAF50;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+
+    .author {
+      text-align: right;
+      font-style: italic;
+      margin-top: 20px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p>The Enchanted Equinox</p>
+  </header>
+
+  <div class="story-container" id="storyContainer">
+    <h4>Story:</h4>
+    <p>In the quiet village of Whispering Pines, a peculiar phenomenon occurred every autumn. As the leaves changed color, the town's forgotten fountain in the center square began to ripple with enchanting energy. Locals spoke of its magical properties, and young Lily, an adventurous soul, decided to investigate.
+
+      One crisp October day, Lily approached the fountain, a shimmering pool surrounded by ancient stones. As she dipped her hand into the water, a warm glow enveloped her. To her surprise, she found herself transported to a mystical realm filled with talking animals and luminescent flora.
+      
+      Lily befriended a wise old owl named Olliver, who explained that the fountain connected their worlds during the autumn equinox. However, a mischievous sprite had disrupted the balance, endangering both realms. Lily, armed with newfound courage, set out on a quest to restore harmony.
+      
+      Through trials and teamwork, Lily and her newfound friends mended the sprite's mischief. As the last autumn leaf fell, the magical connection faded, and Lily returned home with a heart full of stories and the newfound wisdom that courage and kindness could bridge worlds, even those hidden in the whispers of time.
+      
+      By Anishkumar</p>
+    <p class="author">By Anishkumar</p>
+  </div>
+
+  <footer>
+    <a href="{% url 'The_enchanted_equinox_quiz' %}">Take the Quiz</a>
+    <button id="downloadButton" onclick="downloadStory()">Download Story as PDF</button>
+  </footer>
+
+  <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+  <script>
+    function downloadStory() {
+      var element = document.getElementById('storyContainer');
+      html2pdf(element);
+    }
+  </script>
+</body>
+</html>

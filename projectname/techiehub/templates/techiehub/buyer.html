@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buyer</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        form {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Buyer</h1>
+    </header>
+
+
+        <form method="post" action="{% url 'buyer' %}">
+            {% csrf_token %}
+            <h2>Buyer Details</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="dor">Date of Registering:</label>
+            <textarea id="dor" name="dor" rows="4" required></textarea>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="old_address">Address of old home:</label>
+            <textarea id="old_address" name="old_address" rows="4" required></textarea>
+
+            <label for="new_address">Address of new home:</label>
+            <textarea id="new_address" name="new_address" rows="4" required></textarea>
+
+            <label for="number">Phone Number:</label>
+            <input type="tel" id="number" name="number" pattern="[0-9]{10}" required>
+
+            <button type="submit">Submit</button>
+        </form>
+        <h5>Note: We will notify you when the Form is Registered</h5>
+
+
+    <footer>
+        <p>&copy; 2024 Buyer. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

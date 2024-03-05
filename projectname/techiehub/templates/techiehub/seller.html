@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Page</title>
+<style>
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input, form button {
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Seller Page</h1>
+    </header>
+    <main>
+        <section id="products">
+            <h2>Products for Sale</h2>
+            <ul id="product-list">
+  
+            </ul>
+        </section>
+        <section id="add-product">
+            <h2>Add a New Product</h2>
+            <form id="add-product-form">
+                <label for="product-name">Product Name:</label>
+                <input type="text" id="product-name" name="product-name" required>
+                <label for="product-price">Price:</label>
+                <input type="number" id="product-price" name="product-price" min="0" step="0.01" required>
+                <button type="submit">Add Product</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Seller Page. All rights reserved.</p>
+    </footer>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function () {
+          const form = document.getElementById('add-product-form');
+          const productList = document.getElementById('product-list');
+      
+          form.addEventListener('submit', function (event) {
+              event.preventDefault();
+      
+              const productName = document.getElementById('product-name').value;
+              const productPrice = parseFloat(document.getElementById('product-price').value);
+      
+              if (productName && !isNaN(productPrice) && productPrice >= 0) {
+                  addProduct(productName, productPrice);
+                  form.reset();
+              } else {
+                  alert('Please provide valid product name and price.');
+              }
+          });
+      
+          function addProduct(name, price) {
+              const li = document.createElement('li');
+              li.textContent = `${name}: $${price.toFixed(2)}`;
+              productList.appendChild(li);
+          }
+      });
+      </script>
+</body>
+</html>
+
+
+
+

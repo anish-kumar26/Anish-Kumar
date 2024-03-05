@@ -1,0 +1,14 @@
+from twilio.rest import Client
+
+account_sid = 'AC221ca32b1a5350b9823cb32ceb6cecd6'
+auth_token = '239ebf18d85aa398dc3aa100704ea148'
+client = Client(account_sid, auth_token)
+
+message = client.messages.create(
+  from_='whatsapp:+14155238886',
+  body='This is an test message from techie hub to test our OTP verification code
+OTP:595143',
+  to='whatsapp:+919791126625'
+)
+
+print(message.sid)

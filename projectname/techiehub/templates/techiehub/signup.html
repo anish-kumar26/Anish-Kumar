@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .otpPage {
+            display: none;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #054408;
+        }
+
+        p {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 5px;
+            text-align: center;
+            display: none; 
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; 
+        }
+        
+        #loading-spinner {
+            border: 8px solid #f3f3f3; 
+            border-top: 8px solid #3498db; 
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 24px;
+        }
+        
+        #content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Sign Up</h2>
+        <form method="POST" action="{% url 'signup' %}" id="signupForm">
+            {% csrf_token %}
+            <label for="new_username">Username:</label>
+            <input type="text" id="new_username" name="new_username" required>
+
+            <label for="new_gmail">Gmail:</label>
+            <input type="text" id="new_gmail" name="new_gmail" required>
+
+            
+            <label for="new_number">Phone Number:</label>
+            <input type="text" id="new_number" name="new_number" required>
+
+            <label for="new_password">Password:</label>
+            <input type="password" id="new_password" name="new_password" required>
+            <button type="submit">Next</button>
+            
+
+        
+        </form>
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
+        
+        <h6>Note:Account Will be Created in 30min to 1hr.</h6>
+        <br>
+        <div class="success-message" id="success-message" onclick="showAlert()">Redirecting...</div>
+        {% if error %}
+<div class="alert alert-danger" role="alert">
+  {{ error }}
+</div>
+{% endif %}
+
+    </div>
+
+
+
+    <div id="loading-screen">
+        <div id="loading-spinner"></div>
+    </div>
+
+    <script>
+
+       
+function showOTPPage() {
+
+            document.getElementById('signupPage').classList.add('hidden');
+            
+
+            document.getElementById('otpPage').classList.remove('hidden');
+        }
+
+        function submitOTP() {
+
+            alert('OTP submitted successfully!');
+            
+
+            document.getElementById('otp1').value = '';
+
+
+            document.getElementById('otpPage').classList.add('hidden');
+
+            document.getElementById('signupPage').classList.remove('hidden');
+        }
+      </script>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            event.preventDefault(); 
+            
+            function showAlert() {
+      alert("Hello, this is an alert!");
+    }
+
+
+            document.getElementById('success-message').style.display = 'block';
+
+
+            setTimeout(function() {
+                document.getElementById('success-message').style.display = 'none';
+
+                document.getElementById('signupForm').submit();
+            }, 4000);
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var loadingScreen = document.getElementById('loading-screen');
+            var content = document.getElementById('content');
+
+            loadingScreen.style.display = 'flex';
+
+            setTimeout(function () {
+                loadingScreen.style.display = 'none';
+                content.style.display = 'block';
+            }, 1500); 
+            
+           
+        });
+
+        
+    </script>
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turbo AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-box {
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid black; /* Added black border */
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            overflow: hidden;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .user,
+        .assistant {
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .user {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .assistant {
+            background-color: #ffffff;
+            color: black;
+        }
+
+        .assistant img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .ai-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        input[type="text"] {
+            width: 60%;
+            padding: 8px;
+            margin-right: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        input[type="submit"] {
+            width: 15%;
+            padding: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            float: left;
+        }
+
+        .mic-container {
+            width: 15%;
+            padding: 1px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            float: left;
+            margin-left: 10px;
+        }
+
+        #mic-button {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #mic-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+        }
+
+        .recording-animation {
+            width: 12px;
+            height: 12px;
+            background-color: red;
+            border-radius: 50%;
+            margin-left: 5px;
+            animation: recording-pulse 1s infinite;
+        }
+
+        .code-block {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+        integrity="sha512-XpUg4E4pxb9vIIqM3Nci+LS6PnEN6p5pHR6UV4V4ZXZH7UKT7U3F/kPoYLs4xZzqeIBlRrMqIv5zUqk75z1Mug=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"
+        integrity="sha512-LadR1u7CH3ODwwpDdhhlRgLi5g5JJxu7qQjI+xtnnc+dFVh5uc8b7bGGKZWixL7A/NO0NxBXoXWMADlZ2D9jpQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="chat-box" id="chat-box">
+
+        </div>
+
+        <form id="chat-form" onsubmit="return sendMessage()">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <input type="submit" value="Send">
+
+            <div class="mic-container">
+                <button id="mic-button" onclick="startSpeechRecognition()">
+                    <img id="mic-icon"
+                        src="https://img.icons8.com/ios-filled/50/000000/microphone.png" alt="Microphone">
+                    <div id="recording-animation" class="recording-animation"></div>
+                </button>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+        </form>
+    </div>
+
+    <script>
+
+        if ('speechSynthesis' in window) {
+            var synth = window.speechSynthesis;
+        } else {
+            console.error('Speech synthesis is not supported.');
+        }
+
+        function speak(text) {
+            var utterance = new SpeechSynthesisUtterance(text);
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function highlightCode(code, lang) {
+            return Prism.highlight(code, Prism.languages[lang], lang);
+        }
+
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            var chatBox = document.getElementById("chat-box");
+
+
+            chatBox.innerHTML += '<div class="message user"><div class="user">' + userInput + '</div></div>';
+            document.getElementById("user-input").value = '';
+
+
+            fetch('/ai_chat/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: 'user_input=' + encodeURIComponent(userInput)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var assistantDiv = document.createElement('div');
+                    assistantDiv.className = 'message assistant';
+
+
+                    if (data.ai_response.includes('.png') || data.ai_response.includes('.jpg')) {
+                        var image = document.createElement('img');
+                        image.src = data.ai_response;
+                        image.alt = 'AI Image';
+                        image.className = 'ai-image';
+                        assistantDiv.appendChild(image);
+                    } else {
+
+                        if (data.is_code) {
+                            var codeBlock = document.createElement('pre');
+                            codeBlock.className = 'code-block';
+                            codeBlock.innerHTML = highlightCode(data.ai_response, data.code_language);
+                            assistantDiv.appendChild(codeBlock);
+                        } else {
+                            assistantDiv.innerHTML = '<div class="assistant">' + data.ai_response + '</div>';
+
+                            speak(data.ai_response);
+                        }
+                    }
+
+
+                    chatBox.appendChild(assistantDiv);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                });
+
+            return false;
+        }
+
+        let recognition;
+
+        function startSpeechRecognition() {
+            recognition = new SpeechRecognition() || new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                document.getElementById('recording-animation').style.display = 'block';
+            };
+
+            recognition.onresult = function(event) {
+                const userInput = event.results[0][0].transcript;
+                document.getElementById("user-input").value = userInput;
+            };
+
+            recognition.onend = function() {
+                document.getElementById('recording-animation').style.display = 'none';
+                sendMessage();
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                document.getElementById('recording-animation').style.display = 'none';
+            };
+
+            recognition.start();
+
+        }
+    </script>
+</body>
+
+</html>
